@@ -70,7 +70,7 @@ The inference script should then be run:
 python src/infer.py <model> <path_to.dump>
 ```
 
-Where model is one of the following:
+where model is one of the following:
 
 * gat2.pt
 * sage.pt
