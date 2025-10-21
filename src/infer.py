@@ -31,14 +31,19 @@ def do(model, input, device):
     results = gnn(g.x, g.edge_index).argmax(dim=1)
     names = bidict(g.order)
     y = g.y.argmax(dim=1)
-    print(f"bel\tip_inferred\tip_actual")
+
+    total = 0
+    correct = 0
+
     for i, r in enumerate(results):
-        l = None
         r = r.item()
-        l = checkpoint['classes'][r].decode('utf-8')
-
-        print(f"{names.inv[i].decode('utf-8')}\t{l}\t{g.ip[i].decode('utf-8')}")
-
+        predicted = checkpoint['classes'][r].decode('utf-8')
+        actual = g.ip[i].decode('utf-8')
+        total += 1
+        if predicted == actual:
+            correct += 1
+		
+    print(f"accuracy: {correct/total}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -47,4 +52,3 @@ if __name__ == "__main__":
     parser.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu', choices=['cpu', 'cuda'], help="Device to run on (default: auto-detect)")
     args = parser.parse_args()
     do(args.model, Path(args.input), args.device)
-
