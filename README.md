@@ -1,9 +1,9 @@
 # Neurocore FPT 2025
 
 This repository contains:
-* Two datasets of 5000 designs each, as described in the FPT 2025 paper.  Each design has:
-    * A Tcl script that can be run in Vivado 2022.2 to generate a corresponding design.
+* Two datasets of 5000 designs each (4000 training designs, 1000 test designs), as described in the FPT 2025 paper.  Each design has a Tcl script that can be run in Vivado 2022.2 to generate a corresponding design.
     * A .dump file containing the full implementation details of the design.
+* The first 25 test designs have a *.dump file included for quick evaluation.  This includes a full dump of the implementation details of the design.
 * Three trained models for detecting and locating IP in FPGA designs.
 
 
