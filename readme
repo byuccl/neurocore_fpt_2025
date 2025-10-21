@@ -1,0 +1,53 @@
+Neurocore Artifacts
+
+These are the artifacts used to compute the results in the Neurocore[1]
+paper.
+
+The overall workflow is broken into three parts.  First the designs
+are generated using Vivado, then the designs are extracted from Vivado,
+and finally the models are analyzed using the provided python script.
+In the absence of Vivado, we have provided 25 already-extracted designs
+from each dataset with which to evaluate the models.
+
+
+Vivado Design Generation
+
+
+Vivado Design Extraction
+
+The easiest way to extract the required dump file from an implemented
+checkpoint is using the following command:
+
+vivado -mode batch -source src/dump.tcl -tclargs <path/to/checkpoint>
+
+This path cannot have the trailing .dcp extension, as the dump script
+uses the same path to compute both the dcp name as well as the name
+for the resulting dump file.  The dump file will be placed in the same
+directory as the checkpoint file.
+
+
+Model Inference
+
+We have developed the models and the inference script using python 3.12.
+To install all necessary dependencies, we recommend setting up a virtual
+environment with the command:
+
+python -m venv .venv
+
+Then the environment can be activated using:
+
+. .venv/bin/activate
+
+and then populated as follows:
+
+pip install -r requirements.txt
+
+The inference script should then be run:
+
+python src/infer.py <model> <path_to.dump>
+
+Where model is one of the following:
+
+gat2.pt
+sage.pt
+gcn.pt
