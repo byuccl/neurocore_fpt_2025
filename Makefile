@@ -6,8 +6,8 @@ unzip_gat2_model:
 
 unpack_datasets:
 	mkdir -p datasets
-	tar -xzvf zip/dataset.tar.gz -C datasets
-	tar -xzvf zip/dataset.tar.gz -C datasets
+	tar -xzvf zip/dataset1.tar.gz -C datasets
+	tar -xzvf zip/dataset2.tar.gz -C datasets
 
 env:
 	python3.12 -m venv .venv
