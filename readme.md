@@ -31,6 +31,21 @@ Given the long runtime to compile all 1000 test designs in Vivado, we recommend 
    make unpack_datasets
    ```
 
+## Quick Accuracy Collection
+
+You can quickly collect accuracy results for the first 25 test designs like so:
+
+```bash
+make env
+. .venv/bin/activate
+./quick_check.sh > accuracy.csv
+```
+
+The results will be stored in `accuracy.csv` and can be compared to the results reported in the paper.
+
+To run accuracy checks on other designs, please follow the steps below.
+
+
 ## Compiling a Design and Generating its Dump File
 
 To compile a design in Vivado (**Make sure to use 2022.2**), run the following:
@@ -59,19 +74,13 @@ To install all necessary dependencies, we recommend setting up a virtual
 environment with the command:
 
 ```bash
-python -m venv .venv
+make env
 ```
 
 Then the environment can be activated using:
 
 ```bash
 . .venv/bin/activate
-```
-
-and then populated as follows:
-
-```bash
-pip install -r requirements.txt
 ```
 
 The inference script should then be run:
@@ -82,6 +91,6 @@ python src/infer.py <model> <path_to.dump>
 
 where model is one of the following:
 
-* gat2.pt
-* sage.pt
-* gcn.pt
+* `models/gat2.pt`
+* `models/sage.pt`
+* `models/gcn.pt`
