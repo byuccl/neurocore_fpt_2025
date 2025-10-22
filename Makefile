@@ -2,7 +2,7 @@ zip_gat2_model:
 	7z a -v99m zip/models/gat2/gat2.7z gat2_pairnorm.pt
 
 unzip_gat2_model:
-	7z x zip/models/gat2/gat2.7z.001 -C models
+	7z x zip/models/gat2/gat2.7z.001 -omodels
 
 unpack_datasets:
 	mkdir -p datasets
