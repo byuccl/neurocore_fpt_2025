@@ -6,5 +6,9 @@ unzip_gat2_model:
 
 unpack_datasets:
 	mkdir -p datasets
-	tar -xzvf zip/dataset1_tcl_25dumps.tar.gz -C datasets
-	tar -xzvf zip/dataset2_tcl_25dumps.tar.gz -C datasets
+	tar -xzvf zip/dataset.tar.gz -C datasets
+	tar -xzvf zip/dataset.tar.gz -C datasets
+
+env:
+	python3.12 -m venv .venv
+	. .venv/bin/activate; pip install -r requirements.txt

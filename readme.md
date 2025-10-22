@@ -1,13 +1,23 @@
 # Neurocore FPT 2025 Artifacts
 
-These are the artifacts used to compute the results in the Neurocore[1]
+These are the artifacts used to compute the results in the Neurocore FPT
 paper.
 
-The overall workflow is broken into three parts.  First the designs
-are generated using Vivado, then the designs are extracted from Vivado,
-and finally the models are analyzed using the provided python script.
-In the absence of Vivado, we have provided 25 already-extracted designs
-from each dataset with which to evaluate the models.
+This repository contains:
+* Two datasets of 5000 designs each (4000 training designs, 1000 test designs), as described in the FPT 2025 paper.  Each design has a Tcl script that can be run in Vivado 2022.2 to generate a corresponding design.
+* The first 25 test designs (4000--4024) have a *.dump file included for quick evaluation. The .dump file is a full dump of the implementation details of the design.
+* Three trained models for detecting and locating IP in FPGA designs.
+
+
+## Overall Workflow to Validate Paper Results
+The overall workflow is broken into three parts.  The first two steps can be skipped for the first 25 test designs, for which have provided pre-extracted dump files.
+1. First the design is built using Vivado, which runs the provided *design.tcl* script, and performs synthesis and implementation to compile the design.  
+1. The implemented design details are extracted from Vivado to produce a `.dump` file.
+1. The resulting `.dump` file is analyzed using the pre-trained GNN models with the provided python script, which will report the accuracy of the model on the design.
+
+**These steps can then be repeated for multiple designs, and the accuracy results can be compared to those reported in the paper.**
+
+Given the long runtime to compile all 1000 test designs in Vivado, we recommend running a subset of the test designs, computing the average accuracy, and verifying similarity to the reported results.
 
 ## Unpacking the model and datasets
 
@@ -25,7 +35,7 @@ from each dataset with which to evaluate the models.
 
 To compile a design in Vivado (**Make sure to use 2022.2**), run the following:
 ```bash
-cd datasets/dataset1_tcl_25dumps/design_0000
+cd datasets/dataset1/design_0000
 vivado -mode batch -source design.tcl
 ```
 
@@ -33,7 +43,7 @@ The easiest way to extract the required dump file from an implemented
 checkpoint is using the following command:
 
 ```bash
-vivado -mode batch -source src/dump.tcl -tclargs <path/to/checkpoint>
+vivado -mode batch -source src/dump.tcl -tclargs <path/to/checkpoint_without_extension>
 ```
 
 This path cannot have the trailing .dcp extension, as the dump script

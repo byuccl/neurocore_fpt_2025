@@ -1,0 +1,1 @@
+python src/infer.py models/sage.pt datasets/dataset1/design_4000/design_4000.dump
